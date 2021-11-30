@@ -1,0 +1,30 @@
+body {
+
+}
+
+input {
+    border: 1px grey solid;
+    border-radius: 5px;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+}
+
+input {
+
+}
+
+#search {
+    padding: 25px;
+    border-bottom: 1px grey solid;
+}
+
+#city {
+
+}
+
+#forecast {
+
+}
