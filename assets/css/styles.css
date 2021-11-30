@@ -2,6 +2,10 @@ body {
 
 }
 
+header {
+    background-color: darkblue;
+}
+
 input {
     border: 1px grey solid;
     border-radius: 5px;
@@ -10,10 +14,6 @@ input {
 button {
     border: none;
     border-radius: 5px;
-}
-
-input {
-
 }
 
 #search {
