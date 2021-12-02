@@ -26,7 +26,7 @@ function getHistory() {
 
     for (i = 0; i < searchHistory.city.length; i++) {
         if (searchHistory.city[i].length === 3) {
-            var historyEl = $("<div>").addClass("history-card").text(searchHistory.city[i][0]);
+            var historyEl = $("<button>").addClass("history-btn col-12 p-1 m-2").text(searchHistory.city[i][0]);
             $("#history").append(historyEl);
         }
     }

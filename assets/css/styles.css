@@ -7,18 +7,39 @@ header {
 }
 
 input {
-    border: 1px grey solid;
-    border-radius: 5px;
+
 }
 
 button {
     border: none;
     border-radius: 5px;
+    font-weight: bold;
 }
 
-#search {
-    padding: 25px;
+form {
+
+}
+
+form label {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+form input {
+    padding: 5px;
+    border: 1px grey solid;
+    border-radius: 5px;
+}
+
+form button {
+    color: white;
+    background-color: #5098e6;
+}
+
+#search-form {
     border-bottom: 1px grey solid;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #city {
@@ -27,4 +48,8 @@ button {
 
 #forecast {
 
+}
+
+.history-btn {
+    background-color: lightgrey;
 }
