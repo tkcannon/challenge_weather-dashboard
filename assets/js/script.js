@@ -4,23 +4,31 @@ var city = {
     lon: ""
 }
 
-var history = {
-    city: []
-}
+var searchHistory = {};
 
 function getHistory() {
-    history = JSON.parse(localStorage.getItem("history"));
-    if (!history.city) {
-        history.city = [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-        ]
+    searchHistory = JSON.parse(localStorage.getItem("history"));
+    console.log(searchHistory);
+    if (!searchHistory) {
+        searchHistory = {
+            city: [
+                "placeholder",
+                "placeholder",
+                "placeholder",
+                "placeholder",
+                "placeholder",
+                "placeholder",
+                "placeholder",
+                "placeholder"
+            ]
+        }
+    }
+
+    for (i = 0; i < searchHistory.city.length; i++) {
+        if (searchHistory.city[i].length === 3) {
+            var historyEl = $("<div>").addClass("history-card").text(searchHistory.city[i][0]);
+            $("#history").append(historyEl);
+        }
     }
 }
 
@@ -36,7 +44,9 @@ function locate() {
     fetch(geoLoc).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                if (data.name) {
+                console.log(data);
+                if (data[0].name != undefined) {
+                    city.name = data[0].name;
                     city.lat = data[0].lat.toString();
                     city.lon = data[0].lon.toString();
                     search();
@@ -63,13 +73,13 @@ function search() {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
-                    history.city.pop();
-                    history.city.unshift([
+                    searchHistory.city.pop();
+                    searchHistory.city.unshift([
                         city.name,
                         city.lat,
                         city.lon
                     ]);
-                    console.log(history);
+                    localStorage.setItem("history", JSON.stringify(searchHistory));
                 });
             }
             else {
