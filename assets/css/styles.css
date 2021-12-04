@@ -1,13 +1,22 @@
-body {
-
+:root {
+    --primary: #5098e6;
+    --secondary: #2d3e50;
+    --accent: lightgrey;
 }
 
 header {
-    background-color: darkblue;
+    text-align: center;
+    color: white;
+    background-color: var(--primary);
+    background-image: linear-gradient(135deg, var(--primary) 20%,var(--secondary));
 }
 
-input {
+h2 {
+    font-weight: bold;
+}
 
+h3 {
+    font-weight: bold;
 }
 
 button {
@@ -17,7 +26,7 @@ button {
 }
 
 form {
-
+    border-bottom: black 1px solid;
 }
 
 form label {
@@ -26,35 +35,29 @@ form label {
 }
 
 form input {
-    padding: 5px;
-    border: 1px grey solid;
+    color: var(--accent);
+    border: 1px var(--accent) solid;
     border-radius: 5px;
 }
 
 form button {
     color: white;
-    background-color: #5098e6;
+    background-color: var(--primary);
 }
 
-#search-form {
-    border-bottom: 1px grey solid;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
-
-#city {
-
-}
-
-#forecast {
-
+form button:hover{
+    background-color: var(--secondary);
 }
 
 .history-btn {
     background-color: lightgrey;
 }
 
+.history-btn:hover {
+    background-color: var(--primary);
+}
+
 .forecast-card {
-    background-color: blue;
+    background-color: var(--secondary);
     color: white;
 }
