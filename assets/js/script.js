@@ -5,6 +5,8 @@ var searchedCity = {
     conditions: ''
 }
 
+var day = dayjs();
+
 function getHistory() {
     searchHistory = JSON.parse(localStorage.getItem("history"));
     if (!searchHistory) {
@@ -118,7 +120,7 @@ function displayConditions() {
     var boxEl = $("#conditions").addClass("p-2 mt-2 mb-3").css("border", "1px black solid");
     boxEl.empty();
     var iconEl = $("<img>").attr("src", getIconSrc(conditions.weather[0].icon));
-    var nameText = $("<h2>").text(searchedCity.name + " add date here ");
+    var nameText = $("<h2>").text(searchedCity.name + " (" + day.format("MM/DD/YYYY") + ")");
     nameText.append(iconEl);
     var tempText = $("<p>").text("Temp: " + conditions.temp + " \u00b0F");
     var windText = $("<p>").text("Wind: " + conditions.wind_speed + " MPH");
@@ -136,8 +138,9 @@ function displayForecast() {
 
     var daysEl = [];
     for (i = 0; i < 5; i++) {
+        day = day.add(1, "day");
         daysEl[i] = $("<div>").addClass("forecast-card col-2 p-2");
-        var dateText = $("<h4>").text("add date");
+        var dateText = $("<h4>").text(day.format("MM/DD/YYYY"));
         var iconEl = $("<img>").attr("src", getIconSrc(searchedCity.conditions.daily[i].weather[0].icon));
         var tempText = ($("<p>")).text("Temp: " + searchedCity.conditions.daily[i].temp.day + " \u00b0F");
         var windText = ($("<p>")).text("Wind: " + searchedCity.conditions.daily[i].wind_speed + " MPH");
