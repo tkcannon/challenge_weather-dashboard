@@ -53,3 +53,8 @@ form button {
 .history-btn {
     background-color: lightgrey;
 }
+
+.forecast-card {
+    background-color: blue;
+    color: white;
+}
