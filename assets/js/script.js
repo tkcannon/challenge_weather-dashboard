@@ -5,7 +5,7 @@ var searchedCity = {
     conditions: ''
 }
 
-var day = dayjs();
+var day;
 
 function getHistory() {
     searchHistory = JSON.parse(localStorage.getItem("history"));
@@ -27,7 +27,7 @@ function getHistory() {
     $("#history").empty();
     for (i = 0; i < searchHistory.city.length; i++) {
         if (searchHistory.city[i].length === 3) {
-            var historyEl = $("<button>").addClass("history-btn col-12 p-1 mb-3").text(searchHistory.city[i][0]);
+            var historyEl = $("<button>").addClass("history-btn col-12 p-2 mb-3").text(searchHistory.city[i][0]);
             $("#history").append(historyEl);
         }
     }
@@ -46,14 +46,15 @@ function locate() {
     fetch(geoLoc).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                if (data[0].name != undefined) {
+                console.log(data);
+                if (data[0]) {
                     searchedCity.name = data[0].name;
                     var lat = data[0].lat.toString();
                     var lon = data[0].lon.toString();
                     search(lat, lon);
                 }
                 else {
-                    alert("No location found for " + city);
+                    alert("No location found for " + searchedCity.name);
                 }
             })
         }
@@ -67,6 +68,7 @@ function locate() {
 }
 
 function search(lat, lon) {
+    day = dayjs();
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" +
         lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=8d88d70ec92bd345dbcf4b9c1eea0ec4";
 
@@ -119,13 +121,30 @@ function displayConditions() {
     var conditions = searchedCity.conditions.current;
     var boxEl = $("#conditions").addClass("p-2 mt-2 mb-3").css("border", "1px black solid");
     boxEl.empty();
+
     var iconEl = $("<img>").attr("src", getIconSrc(conditions.weather[0].icon));
     var nameText = $("<h2>").text(searchedCity.name + " (" + day.format("MM/DD/YYYY") + ")");
     nameText.append(iconEl);
+
     var tempText = $("<p>").text("Temp: " + conditions.temp + " \u00b0F");
     var windText = $("<p>").text("Wind: " + conditions.wind_speed + " MPH");
     var humidityText = $("<p>").text("Humidity: " + conditions.humidity + " %");
-    var UVindexText = $("<p>").text("UV Index: " + conditions.uvi);
+    
+    var uvConditions;
+    if (conditions.uvi < 3) {
+        uvConditions = "uv-favorable";
+    }
+    else if (conditions.uvi < 6) {
+        uvConditions = "uv-moderate";
+    }
+    else {
+        uvConditions = "uv-severe";
+    }
+
+    var uvText = $("<i>").addClass(uvConditions).text(conditions.uvi);
+    var UVindexText = $("<p>").text("UV Index: ");
+    UVindexText.append(uvText);
+
     boxEl.append(nameText, tempText, windText, humidityText, UVindexText);
     displayForecast();
 }
