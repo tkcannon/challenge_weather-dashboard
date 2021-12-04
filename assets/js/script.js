@@ -76,11 +76,8 @@ function search(lat, lon) {
                     // Checks if city already exists in history
                     var cityStoredAt = "";
                     for (i = 0; i < searchHistory.city.length && !cityStoredAt; i++) {
-                        console.log(i);
-                        console.log(searchHistory.city[i][0]);
                         if (searchedCity.name === searchHistory.city[i][0]) {
                             cityStoredAt = i;
-                            console.log(cityStoredAt);
                         }
                     }
 
@@ -129,6 +126,7 @@ function displayConditions() {
 
 function displayForecast() {
     var forecastEL = $("#forecast").addClass("d-flex justify-content-between row p-1");
+    forecastEL.empty();
     var headerEl = $("<h3>").text("5-Day Forecast");
 
     forecastEL.append(headerEl);
@@ -148,5 +146,14 @@ function displayForecast() {
 getHistory();
 
 $("form").on("submit", formSubmitHandler);
-$("history").on("click", function (event) {
+
+$("#history").on("click", function (event) {
+    var cityName = event.target.textContent;
+    for (let i = 0; i < searchHistory.city.length; i++) {
+        if(searchHistory.city[i][0] === cityName) {
+            searchedCity.name = cityName;
+            search(searchHistory.city[i][1], searchHistory.city[i][2]);
+            break;
+    }        
+    }
 })
