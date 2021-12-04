@@ -119,7 +119,7 @@ function displayConditions() {
     var boxEl = $("#conditions").addClass("p-1").css("border", "1px black solid");
     boxEl.empty();
     var nameText = $("<h2>").text(searchedCity.name + " add date here");
-    var tempText = $("<p>").text("Temp: " + searchedCity.conditions.current.temp + " F");
+    var tempText = $("<p>").text("Temp: " + searchedCity.conditions.current.temp + " \u00b0F");
     var windText = $("<p>").text("Wind: " + searchedCity.conditions.current.wind_speed + " MPH");
     var humidityText = $("<p>").text("Humidity: " + searchedCity.conditions.current.humidity + " %");
     var UVindexText = $("<p>").text("UV Index: " + searchedCity.conditions.current.uvi);
@@ -137,7 +137,7 @@ function displayForecast() {
     for (i = 0; i < 5; i++) {
         daysEl[i] = $("<div>").addClass("forecast-card col-2 p-1 m-1");
         var dateText = $("<h4>").text("add date");
-        var tempText = ($("<p>")).text("Temp: " + searchedCity.conditions.daily[i].temp.day + " F");
+        var tempText = ($("<p>")).text("Temp: " + searchedCity.conditions.daily[i].temp.day + " \u00b0F");
         var windText = ($("<p>")).text("Wind: " + searchedCity.conditions.daily[i].wind_speed + " MPH");
         var humidityText = ($("<p>")).text("Humidity: " + searchedCity.conditions.daily[i].humidity + " %");
         daysEl[i].append(dateText, tempText, windText, humidityText);
