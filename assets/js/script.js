@@ -41,7 +41,7 @@ function formSubmitHandler(event) {
 }
 
 function locate() {
-    var geoLoc = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchedCity.name + "&limit=5&appid=8d88d70ec92bd345dbcf4b9c1eea0ec4";
+    var geoLoc = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchedCity.name + "&limit=5&appid=8d88d70ec92bd345dbcf4b9c1eea0ec4";
 
     fetch(geoLoc).then(function (response) {
         if (response.ok) {
