@@ -7,6 +7,7 @@ var searchedCity = {
 
 var day;
 
+// Find any previous searchHistory or create new placeholder if no previous history exists
 function getHistory() {
     searchHistory = JSON.parse(localStorage.getItem("history"));
     if (!searchHistory) {
@@ -24,6 +25,7 @@ function getHistory() {
         }
     }
 
+    // Display history to webpage
     $("#history").empty();
     for (i = 0; i < searchHistory.city.length; i++) {
         if (searchHistory.city[i].length === 3) {
@@ -40,15 +42,15 @@ function formSubmitHandler(event) {
     locate();
 }
 
+// Get lat and lon of searched city
 function locate() {
     var geoLoc = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchedCity.name + "&limit=5&appid=8d88d70ec92bd345dbcf4b9c1eea0ec4";
 
     fetch(geoLoc).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                console.log(data);
                 if (data[0]) {
-                    searchedCity.name = data[0].name;
+                    searchedCity.name = data[0].name; // Updates searched city name to match response from openweathermap
                     var lat = data[0].lat.toString();
                     var lon = data[0].lon.toString();
                     search(lat, lon);
@@ -67,6 +69,7 @@ function locate() {
         });
 }
 
+// Get weather data
 function search(lat, lon) {
     day = dayjs();
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -97,6 +100,7 @@ function search(lat, lon) {
                     }
 
                     // Places most recent searched city at front of array
+                    // Setup so locate() does not need to be called again for citys in history
                     searchHistory.city.unshift([
                         searchedCity.name,
                         lat,
@@ -104,7 +108,7 @@ function search(lat, lon) {
                     ]);
 
                     localStorage.setItem("history", JSON.stringify(searchHistory));
-                    getHistory();
+                    getHistory(); // reload displayed history
                     displayConditions();
                 });
             }
@@ -117,6 +121,7 @@ function search(lat, lon) {
         });
 }
 
+// Current weather conditions
 function displayConditions() {
     var conditions = searchedCity.conditions.current;
     var boxEl = $("#conditions").addClass("p-2 mt-2 mb-3").css("border", "1px black solid");
@@ -129,7 +134,7 @@ function displayConditions() {
     var tempText = $("<p>").text("Temp: " + conditions.temp + " \u00b0F");
     var windText = $("<p>").text("Wind: " + conditions.wind_speed + " MPH");
     var humidityText = $("<p>").text("Humidity: " + conditions.humidity + " %");
-    
+
     var uvConditions;
     if (conditions.uvi < 3) {
         uvConditions = "uv-favorable";
@@ -149,6 +154,7 @@ function displayConditions() {
     displayForecast();
 }
 
+// 5 day forecast
 function displayForecast() {
     var forecastEL = $("#forecast");
     forecastEL.empty();
