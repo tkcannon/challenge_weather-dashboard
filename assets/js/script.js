@@ -171,7 +171,7 @@ function displayForecast() {
 }
 
 function getIconSrc(id) {
-    return "http://openweathermap.org/img/wn/" + id + ".png"
+    return "https://openweathermap.org/img/wn/" + id + ".png"
 }
 
 getHistory();
