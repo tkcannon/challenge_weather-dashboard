@@ -8,5 +8,7 @@
 - The last 8 cities users have searched for appear underneath the search field
 - Selecting a city from the history list brings up current conditions for that city
 
+![Challenge 6 Weather Dashboard screen shot](./assets/images/Weather-Dashboard.png)
+
 ## Link
 https://tkcannon.github.io/weather-dashboard/
